@@ -1,4 +1,4 @@
-package com.acsoft.mumovie.Adapters
+package com.acsoft.mumovie.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.acsoft.mumovie.POJO.Movie
+import com.acsoft.mumovie.models.Movie
 import com.acsoft.mumovie.R
 
 class ReleaseAdapter(var context: Context,items:ArrayList<Movie>): RecyclerView.Adapter<ReleaseAdapter.ViewHolder>() {
-
 
     var items : ArrayList<Movie>? =null
     init {
@@ -24,13 +23,14 @@ class ReleaseAdapter(var context: Context,items:ArrayList<Movie>): RecyclerView.
     }
 
     override fun getItemCount(): Int {
-        return items?.count()!!
+        return items!!.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items?.get(position)
         holder.title?.text= item?.title.toString()
     }
+
 
 
     class  ViewHolder(view:View): RecyclerView.ViewHolder(view){

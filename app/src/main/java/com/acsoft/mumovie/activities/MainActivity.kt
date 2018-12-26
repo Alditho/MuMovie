@@ -1,7 +1,6 @@
-package com.acsoft.mumovie
+package com.acsoft.mumovie.activities
 
 import android.support.design.widget.TabLayout
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 
 import android.support.v4.app.Fragment
@@ -10,6 +9,10 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.acsoft.mumovie.R
+import com.acsoft.mumovie.fragments.RateFragment
+import com.acsoft.mumovie.fragments.ReleaseFragment
+import com.acsoft.mumovie.fragments.TrendyFragment
 
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -45,8 +48,7 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-        }
-*/
+        }*/
     }
 
 
