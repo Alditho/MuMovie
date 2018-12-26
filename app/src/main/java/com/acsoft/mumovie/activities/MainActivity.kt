@@ -9,11 +9,12 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.acsoft.mumovie.R
 import com.acsoft.mumovie.fragments.RateFragment
 import com.acsoft.mumovie.fragments.ReleaseFragment
 import com.acsoft.mumovie.fragments.TrendyFragment
-
+import com.acsoft.mumovie.network.Network
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -44,6 +45,9 @@ class MainActivity : AppCompatActivity() {
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
 
+        if (Network.isNetworkAvailable(this)){
+            Toast.makeText(this,"alojaaa funcionaaaaaaaaa",Toast.LENGTH_SHORT).show()
+        }
         /*
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

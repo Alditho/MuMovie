@@ -38,7 +38,7 @@ class ReleaseAdapter(var context: Context,items:ArrayList<Movie>): RecyclerView.
         var title:TextView? = null
 
         init {
-            title = view.findViewById(R.id.textView)
+            title = view.findViewById(R.id.textViewTitle)
         }
     }
 }
