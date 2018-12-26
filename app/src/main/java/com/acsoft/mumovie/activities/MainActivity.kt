@@ -45,9 +45,6 @@ class MainActivity : AppCompatActivity() {
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
 
-        if (Network.isNetworkAvailable(this)){
-            Toast.makeText(this,"alojaaa funcionaaaaaaaaa",Toast.LENGTH_SHORT).show()
-        }
         /*
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

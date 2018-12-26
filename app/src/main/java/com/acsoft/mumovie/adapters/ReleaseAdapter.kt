@@ -5,9 +5,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.acsoft.mumovie.models.Movie
 import com.acsoft.mumovie.R
+import com.squareup.picasso.Picasso
+import org.w3c.dom.Text
 
 class ReleaseAdapter(var context: Context,items:ArrayList<Movie>): RecyclerView.Adapter<ReleaseAdapter.ViewHolder>() {
 
@@ -28,17 +31,19 @@ class ReleaseAdapter(var context: Context,items:ArrayList<Movie>): RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items?.get(position)
-        holder.title?.text= item?.title.toString()
+        val url = "https://image.tmdb.org/t/p/w185/"
+        Picasso.with(context).load(url+item?.posterPath.toString()).into(holder.image)
     }
 
 
 
     class  ViewHolder(view:View): RecyclerView.ViewHolder(view){
         var view = view
-        var title:TextView? = null
+        var image:ImageView? = null
+
 
         init {
-            title = view.findViewById(R.id.textViewTitle)
+            image = view.findViewById(R.id.imageViewMovieImage)
         }
     }
 }

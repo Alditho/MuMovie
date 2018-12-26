@@ -1,9 +1,8 @@
 package com.acsoft.mumovie.fragments
 
-
-import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,12 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.acsoft.mumovie.utils.ApiMovie
 import com.acsoft.mumovie.R
-import com.acsoft.mumovie.activities.MainActivity
 import com.acsoft.mumovie.adapters.ReleaseAdapter
 import com.acsoft.mumovie.interfaces.ApiInterface
 import com.acsoft.mumovie.models.Movie
 import com.acsoft.mumovie.models.MovieList
-import com.acsoft.mumovie.network.Network
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +29,7 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
 
 
     //https://api.themoviedb.org/3/movie/now_playing?api_key=9ac52d936fbee6f02ba75934a83b23af&language=en-US&page=1&region=US
-    //http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
+    //https://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_release,container,false)
@@ -49,13 +46,6 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
     //obtener peliculas qué están en cines en estos momentos
     fun getReleaseMovies(view: View){
 
-
-        if (Network.isNetworkAvailable(view.context)){
-            Toast.makeText(context,"hay conexion",Toast.LENGTH_SHORT).show()
-        }
-
-
-
         var apiInterface: ApiInterface = ApiMovie().getApiMovie()!!.create(ApiInterface::class.java)
         //Recibimos todos los posts
         apiInterface.getNowPlaying().enqueue(object: Callback<MovieList> {
@@ -66,7 +56,7 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
                     var movies: List<Movie> = response.body()!!.movies
 
                     for (movie: Movie in movies.iterator()){
-                        releaseList.add(Movie(movie.id,movie.title,movie.posterPath))
+                        releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.posterPath))
                     }
 
                     adapter = ReleaseAdapter(view.context,releaseList)
@@ -92,7 +82,7 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
         recycler = view.findViewById(R.id.recyclerviewRelease)
         recycler?.setHasFixedSize(true)
 
-        layoutManager = LinearLayoutManager(view.context)
+        layoutManager = GridLayoutManager(context,2)
         recycler?.layoutManager = layoutManager
     }
 
