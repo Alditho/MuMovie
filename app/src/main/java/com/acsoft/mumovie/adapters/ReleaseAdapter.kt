@@ -34,9 +34,14 @@ class ReleaseAdapter(var context: Context,items:ArrayList<Movie>, var listener: 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         val item = items?.get(position)
-        val url = "https://image.tmdb.org/t/p/w185/"
-        Picasso.with(context).load(url+item?.posterPath.toString()).into(holder.image)
+        if(item?.posterPath.equals("notfound")){
+            Picasso.with(context).load(R.drawable.notfound).into(holder.image)
+        }else{
+            val url = "https://image.tmdb.org/t/p/w185/"
+            Picasso.with(context).load(url+item?.posterPath.toString()).into(holder.image)
+        }
     }
 
 
