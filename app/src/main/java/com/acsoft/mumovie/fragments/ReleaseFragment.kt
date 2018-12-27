@@ -13,6 +13,7 @@ import com.acsoft.mumovie.utils.ApiMovie
 import com.acsoft.mumovie.R
 import com.acsoft.mumovie.adapters.ReleaseAdapter
 import com.acsoft.mumovie.interfaces.ApiInterface
+import com.acsoft.mumovie.interfaces.ClickListener
 import com.acsoft.mumovie.models.Movie
 import com.acsoft.mumovie.models.MovieList
 import retrofit2.Call
@@ -59,7 +60,12 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
                         releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.posterPath))
                     }
 
-                    adapter = ReleaseAdapter(view.context,releaseList)
+                    adapter = ReleaseAdapter(view.context,releaseList,object :ClickListener{
+                        override fun onClick(view: View, index: Int) {
+                            Toast.makeText(context,releaseList.get(index).title,Toast.LENGTH_LONG).show()
+                        }
+
+                    })
                     recycler?.adapter = adapter
 
                     Toast.makeText(context,response.body()?.totalPages.toString(),Toast.LENGTH_SHORT).show()

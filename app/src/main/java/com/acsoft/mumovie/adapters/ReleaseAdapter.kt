@@ -9,10 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.acsoft.mumovie.models.Movie
 import com.acsoft.mumovie.R
+import com.acsoft.mumovie.interfaces.ClickListener
 import com.squareup.picasso.Picasso
 import org.w3c.dom.Text
 
-class ReleaseAdapter(var context: Context,items:ArrayList<Movie>): RecyclerView.Adapter<ReleaseAdapter.ViewHolder>() {
+class ReleaseAdapter(var context: Context,items:ArrayList<Movie>, var listener: ClickListener): RecyclerView.Adapter<ReleaseAdapter.ViewHolder>() {
 
     var items : ArrayList<Movie>? =null
     init {
@@ -21,7 +22,7 @@ class ReleaseAdapter(var context: Context,items:ArrayList<Movie>): RecyclerView.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReleaseAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.template_release,parent,false)
-        val  viewHolder = ViewHolder(view)
+        val  viewHolder = ViewHolder(view,listener)
         return  viewHolder
     }
 
@@ -37,13 +38,21 @@ class ReleaseAdapter(var context: Context,items:ArrayList<Movie>): RecyclerView.
 
 
 
-    class  ViewHolder(view:View): RecyclerView.ViewHolder(view){
+    class  ViewHolder(view:View, listener: ClickListener): RecyclerView.ViewHolder(view),View.OnClickListener{
+
+
         var view = view
         var image:ImageView? = null
-
+        var listener: ClickListener? = null
 
         init {
             image = view.findViewById(R.id.imageViewMovieImage)
+            this.listener = listener
+            view.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            this.listener?.onClick(v!!,adapterPosition)
         }
     }
 }
