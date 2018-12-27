@@ -1,12 +1,15 @@
 package com.acsoft.mumovie.adapters
 
 import android.content.Context
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.acsoft.mumovie.models.Movie
 import com.acsoft.mumovie.R
 import com.acsoft.mumovie.interfaces.ClickListener
@@ -38,9 +41,8 @@ class ReleaseAdapter(var context: Context,items:ArrayList<Movie>, var listener: 
 
 
 
+
     class  ViewHolder(view:View, listener: ClickListener): RecyclerView.ViewHolder(view),View.OnClickListener{
-
-
         var view = view
         var image:ImageView? = null
         var listener: ClickListener? = null
