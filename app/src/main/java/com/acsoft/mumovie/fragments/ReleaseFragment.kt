@@ -105,7 +105,7 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
                             }else{
                                 releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.posterPath))
                             }
-                        }
+                        }//termina for
 
 
 
