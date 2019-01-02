@@ -33,7 +33,11 @@ Mumovie obtiene su información gracias a la api de [themoviedb](https://www.them
 
 #### ¿Con que tecnologías se desarrolló MuMovie? 
 
--Kotlin
--Retrofit
--Gson
--Youtube Android Player Api
+*Kotlin
+*Retrofit
+*Gson
+*Youtube Android Player Api
+
+## Author
+
+* **Aldo Urtusuastegui** 
