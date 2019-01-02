@@ -16,11 +16,11 @@ import com.acsoft.mumovie.interfaces.ClickListener
 import com.squareup.picasso.Picasso
 import org.w3c.dom.Text
 
-class ReleaseAdapter(var context: Context,items:ArrayList<Movie>, var listener: ClickListener): RecyclerView.Adapter<ReleaseAdapter.ViewHolder>() {
+class ReleaseAdapter(var context: Context,movies:ArrayList<Movie>, var listener: ClickListener): RecyclerView.Adapter<ReleaseAdapter.ViewHolder>() {
 
-    var items : ArrayList<Movie>? =null
+    var movies : ArrayList<Movie>? =null
     init {
-        this.items = items
+        this.movies = movies
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReleaseAdapter.ViewHolder {
@@ -30,12 +30,12 @@ class ReleaseAdapter(var context: Context,items:ArrayList<Movie>, var listener: 
     }
 
     override fun getItemCount(): Int {
-        return items!!.size
+        return movies!!.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val item = items?.get(position)
+        val item = movies?.get(position)
         if(item?.posterPath.equals("notfound")){
             Picasso.with(context).load(R.drawable.notfound).into(holder.image)
         }else{

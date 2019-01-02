@@ -9,12 +9,10 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.acsoft.mumovie.R
 import com.acsoft.mumovie.fragments.RateFragment
 import com.acsoft.mumovie.fragments.ReleaseFragment
-import com.acsoft.mumovie.fragments.TrendyFragment
-import com.acsoft.mumovie.network.Network
+import com.acsoft.mumovie.fragments.PopularFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -82,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         override fun getItem(position: Int): Fragment? {
             when(position){
                 0 -> return ReleaseFragment()
-                1 -> return TrendyFragment()
+                1 -> return PopularFragment()
                 2 -> return RateFragment()
                 else -> return null
             }
@@ -95,9 +93,9 @@ class MainActivity : AppCompatActivity() {
 
         override fun getPageTitle(position: Int): CharSequence? {
             when(position){
-                0 -> return "CINES"
-                1 -> return "POPULARES"
-                3 -> return "VOTADAS"
+                0 -> return resources.getString(R.string.tab_text_1)
+                1 -> return resources.getString(R.string.tab_text_2)
+                3 -> return resources.getString(R.string.tab_text_3)
             }
             return null
         }

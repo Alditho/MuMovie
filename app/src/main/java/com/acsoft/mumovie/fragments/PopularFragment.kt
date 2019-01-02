@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.acsoft.mumovie.utils.ApiMovie
 import com.acsoft.mumovie.R
 import com.acsoft.mumovie.activities.MovieActivity
 import com.acsoft.mumovie.adapters.ReleaseAdapter
@@ -17,42 +16,38 @@ import com.acsoft.mumovie.interfaces.ApiInterface
 import com.acsoft.mumovie.interfaces.ClickListener
 import com.acsoft.mumovie.models.Movie
 import com.acsoft.mumovie.models.MovieList
+import com.acsoft.mumovie.utils.ApiMovie
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+class PopularFragment : Fragment() { //PELICULAS POPULARES
 
-class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
-
-    var recycler:RecyclerView? = null  //recyclerview
-    var adapter:ReleaseAdapter? = null //adaptador personalizado
-    var layoutManager:RecyclerView.LayoutManager? = null //manager
-    var releaseList = ArrayList<Movie>() //lista de peliculas
+    var recycler: RecyclerView? = null  //recyclerview
+    var adapter: ReleaseAdapter? = null //adaptador personalizado
+    var layoutManager: RecyclerView.LayoutManager? = null //manager
+    var moviesList = ArrayList<Movie>() //lista de peliculas
 
     var loading:Boolean = false //guarda estado de scroll, cargar o no datos nuevos de servidor
     var numberPage:Int = 1
     var totalPages:Int = 0
 
-    //https://api.themoviedb.org/3/movie/now_playing?api_key=9ac52d936fbee6f02ba75934a83b23af&language=en-US&page=1&region=US
-    //https://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view: View = inflater.inflate(R.layout.fragment_release,container,false)
+        val view:View = inflater.inflate(R.layout.fragment_popular,container,false)
 
-        getReleaseMovies()
+        getPopularMovies()
         buildRecyclerView(view)
 
-        return view
 
+        return view
     }
 
-
     //obtener primera pagina de peliculas
-    fun getReleaseMovies(){
+    fun getPopularMovies(){
 
         var apiInterface: ApiInterface = ApiMovie().getApiMovie()!!.create(ApiInterface::class.java)
         //Recibimos todos los posts
-        apiInterface.getNowPlaying().enqueue(object: Callback<MovieList> {
+        apiInterface.getPopularMovie().enqueue(object: Callback<MovieList> {
             override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
 
                 if(response.isSuccessful){//response ok
@@ -61,9 +56,9 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
 
                     for (movie: Movie in movies.iterator()){//llenar peliculas en arraylist
                         if(movie.posterPath.isNullOrEmpty()){
-                            releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.average,"notfound"))
+                            moviesList.add(Movie(movie.id,movie.title,movie.overview,movie.average,"notfound"))
                         }else{
-                            releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.average,movie.posterPath))
+                            moviesList.add(Movie(movie.id,movie.title,movie.overview,movie.average,movie.posterPath))
                         }
                     }
 
@@ -75,27 +70,27 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
 
 
                 }else{
-                    Toast.makeText(context,resources.getString(R.string.error_server),Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,resources.getString(R.string.error_server), Toast.LENGTH_SHORT).show()
                 }
 
             }
 
             override fun onFailure(call: Call<MovieList>, t: Throwable) {
-                Toast.makeText(context,resources.getString(R.string.error_server),Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,resources.getString(R.string.error_server), Toast.LENGTH_SHORT).show()
             }
 
         })
     }
 
 
-    fun getReleaseMoviesByPage(page:Int,numberPages:Int){ //obtener peliculas filtradas por pagina
+    fun getPopularMoviesByPage(page:Int,numberPages:Int){ //obtener peliculas filtradas por pagina
 
         if(page>numberPages){
-            Toast.makeText(context,resources.getString(R.string.no_more),Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,resources.getString(R.string.no_more), Toast.LENGTH_SHORT).show()
         }else{
             var apiInterface: ApiInterface = ApiMovie().getApiMovie()!!.create(ApiInterface::class.java)
             //Recibimos todos los posts
-            apiInterface.getNowPlayingByPage(page).enqueue(object: Callback<MovieList> {
+            apiInterface.getPopularMovieByPage(page).enqueue(object: Callback<MovieList> {
                 override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
 
                     if(response.isSuccessful){//response ok
@@ -105,9 +100,9 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
                         for (movie: Movie in movies.iterator()){//llenar peliculas en arraylist
 
                             if(movie.posterPath.isNullOrEmpty()){
-                                releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.average,"notfound"))
+                                moviesList.add(Movie(movie.id,movie.title,movie.overview,movie.average,"notfound"))
                             }else{
-                                releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.average,movie.posterPath))
+                                moviesList.add(Movie(movie.id,movie.title,movie.overview,movie.average,movie.posterPath))
                             }
                         }//termina for
 
@@ -120,13 +115,13 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
                         loading = false
 
                     }else{
-                        Toast.makeText(context,resources.getString(R.string.error_server),Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context,resources.getString(R.string.error_server), Toast.LENGTH_SHORT).show()
                     }
 
                 }
 
                 override fun onFailure(call: Call<MovieList>, t: Throwable) {
-                    Toast.makeText(context,resources.getString(R.string.error_server),Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,resources.getString(R.string.error_server), Toast.LENGTH_SHORT).show()
                 }
 
             })
@@ -140,7 +135,7 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
 
         onClick(view) //click a elemento de la lista
 
-        recycler = view.findViewById(R.id.recyclerviewRelease)
+        recycler = view.findViewById(R.id.recyclerviewPopular)
         recycler?.setHasFixedSize(true)
 
         layoutManager = GridLayoutManager(context,2)
@@ -151,13 +146,13 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
     }
 
     fun onClick(view: View){ //click elemento de recyclerview
-        adapter = ReleaseAdapter(view.context,releaseList,object :ClickListener{
+        adapter = ReleaseAdapter(view.context,moviesList,object : ClickListener {
             override fun onClick(view: View, index: Int) {
-                val intent = Intent(context,MovieActivity::class.java)
-                intent.putExtra("movie",releaseList[index].id)
-                intent.putExtra("title", releaseList[index].title)
-                intent.putExtra("average",releaseList[index].average)
-                intent.putExtra("overview", releaseList[index].overview)
+                val intent = Intent(context, MovieActivity::class.java)
+                intent.putExtra("movie",moviesList[index].id)
+                intent.putExtra("title", moviesList[index].title)
+                intent.putExtra("average",moviesList[index].average)
+                intent.putExtra("overview", moviesList[index].overview)
                 startActivity(intent)
 
             }
@@ -175,7 +170,7 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
                 val firstVisible = (layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
                 if (!loading && (visibleItemCount + firstVisible) >= totalItemCount) {
                     loading = true
-                    getReleaseMoviesByPage(numberPage,totalPages) //cargar siguiente pagina
+                    getPopularMoviesByPage(numberPage,totalPages) //cargar siguiente pagina
                 }
 
             }

@@ -21,5 +21,10 @@ interface ApiInterface {
     @GET("3/movie/{id}/videos?api_key=9ac52d936fbee6f02ba75934a83b23af&language=en-US")
     fun getVideoMovie(@Path("id") id:Int) : Call<VideoList>
 
+    @GET("3/movie/popular?api_key=9ac52d936fbee6f02ba75934a83b23af&language=en-US&page=1&region=US")
+    fun getPopularMovie() : Call<MovieList>
+
+    @GET("3/movie/popular?api_key=9ac52d936fbee6f02ba75934a83b23af&language=en-US&region=US")
+    fun getPopularMovieByPage(@Query("page") page: Int) : Call<MovieList>
 
 }
