@@ -27,4 +27,10 @@ interface ApiInterface {
     @GET("3/movie/popular?api_key=9ac52d936fbee6f02ba75934a83b23af&language=en-US&region=US")
     fun getPopularMovieByPage(@Query("page") page: Int) : Call<MovieList>
 
+    @GET("3/movie/top_rated?api_key=9ac52d936fbee6f02ba75934a83b23af&language=en-US&page=1&region=US")
+    fun getTopRatedMovie() : Call<MovieList>
+
+    @GET("3/movie/top_rated?api_key=9ac52d936fbee6f02ba75934a83b23af&language=en-US&region=US")
+    fun getTopRatedMovieByPage(@Query("page") page: Int) : Call<MovieList>
+
 }
