@@ -60,7 +60,7 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
                     var movies: List<Movie> = response.body()!!.movies //obtener lista de peliculas
 
                     for (movie: Movie in movies.iterator()){//llenar peliculas en arraylist
-                        releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.posterPath))
+                        releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.average,movie.posterPath))
                     }
 
                     recycler?.adapter = adapter //adaptador de rv
@@ -101,9 +101,9 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
                         for (movie: Movie in movies.iterator()){//llenar peliculas en arraylist
 
                             if(movie.posterPath.isNullOrEmpty()){
-                                releaseList.add(Movie(movie.id,movie.title,movie.overview,"notfound"))
+                                releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.average,"notfound"))
                             }else{
-                                releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.posterPath))
+                                releaseList.add(Movie(movie.id,movie.title,movie.overview,movie.average,movie.posterPath))
                             }
                         }//termina for
 
@@ -149,8 +149,11 @@ class ReleaseFragment : Fragment() {  //Muestra peliculas que están en cines
     fun onClick(view: View){ //click elemento de recyclerview
         adapter = ReleaseAdapter(view.context,releaseList,object :ClickListener{
             override fun onClick(view: View, index: Int) {
-                Toast.makeText(context,releaseList.get(index).title,Toast.LENGTH_LONG).show()
                 val intent = Intent(context,MovieActivity::class.java)
+                intent.putExtra("movie",releaseList[index].id)
+                intent.putExtra("title", releaseList[index].title)
+                intent.putExtra("average",releaseList[index].average)
+                intent.putExtra("overview", releaseList[index].overview)
                 startActivity(intent)
 
             }

@@ -9,6 +9,8 @@
     <string name="error_server">Problemas al cargar los datos</string>
     <string name="no_more">No hay más peliculas para mostrar</string>
     <string name="developer_key">AIzaSyAV9K3Wt24HC_aiaRn4bn-BFc4mIqya8pc</string>
+    <string name="overview">Visión General</string>
+    <string name="rating">Rating</string>
 
     <string name="title">Titulo</string>
 </resources>

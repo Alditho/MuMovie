@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiMovie {
 
-    var BASE_URL: String = "https://api.themoviedb.org/3/movie/"
+    var BASE_URL: String = "https://api.themoviedb.org/"
     var retrofit: Retrofit? = null
 
     fun getApiMovie(): Retrofit? {
@@ -17,5 +17,6 @@ class ApiMovie {
         }
         return retrofit
     }
+
 
 }
